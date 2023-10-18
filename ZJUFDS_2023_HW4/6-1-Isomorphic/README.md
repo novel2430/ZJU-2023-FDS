@@ -56,3 +56,5 @@ int main()
 0
 ```
 ![image](https://github.com/novel2430/ZJU-2023-FDS/blob/main/ZJUFDS_2023_HW4/6-1-Isomorphic/002.jpg?raw=true)
+## Note
+main part : check each node's children situation
