@@ -1,7 +1,7 @@
 # 6-1 Isomorphic
 Two trees, `T1` and `T2`, are isomorphic if `T1` can be transformed into `T2` by swapping left and right children of (some of the) nodes in `T1`. For instance, the two trees in Figure 1 are isomorphic because they are the same if the children of A, B, and G, but not the other nodes, are swapped. Give a polynomial time algorithm to decide if two trees are isomorphic.
 
-![image](https://images.ptausercontent.com/37)
+![image](https://github.com/novel2430/ZJU-2023-FDS/blob/main/ZJUFDS_2023_HW4/6-1-Isomorphic/001.jpg?raw=true)
 
 ## Format of functions:
 ```c
@@ -55,4 +55,4 @@ int main()
 ```
 0
 ```
-![image](https://images.ptausercontent.com/38)
+![image](https://github.com/novel2430/ZJU-2023-FDS/blob/main/ZJUFDS_2023_HW4/6-1-Isomorphic/002.jpg?raw=true)
