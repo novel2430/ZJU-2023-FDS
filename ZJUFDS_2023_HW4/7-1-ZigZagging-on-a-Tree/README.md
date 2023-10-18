@@ -63,7 +63,7 @@ void tree_zig_zag_print(Tree* tree){
   my_stack* stack_2 = stack_init(); 
   stack_push(stack, tree->top);
   int flag = 0;
-  // stop when 2 stack all full
+  // stop when 2 stack all empty
   while(!stack_is_empty(stack) || !stack_is_empty(stack_2)){
     // stack1 pop, and push in stack2
     while(!stack_is_empty(stack)){
