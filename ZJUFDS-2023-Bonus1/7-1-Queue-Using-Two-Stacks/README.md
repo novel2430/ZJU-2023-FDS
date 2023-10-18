@@ -1,11 +1,11 @@
 # 7-1 Queue Using Two Stacks
 A queue (FIFO structure) can be implemented by two stacks (LIFO structure) in the following way:
 
-1. Start from two empty stacks s<sub>1</sub> and <sub>s2</sub>
+1. Start from two empty stacks s<sub>1</sub> and s<sub>2</sub>
 
-2. When element `e` is enqueued, it is actually pushed onto <sub>s1</sub>
+2. When element `e` is enqueued, it is actually pushed onto s<sub>1</sub>
 
-3. When we are supposed to dequeue, <sub>s2</sub> is checked first. If <sub>s2</sub> is empty, everything in <sub>s1</sub> will be transferred to <sub>s2</sub> by popping from <sub>s1</sub> and immediately pushing onto <sub>s2</sub>. Then we just pop from <sub>s2</sub> -- the top element of <sub>s2</sub> must be the first one to enter <sub>s1</sub> thus is the first element that was enqueued.
+3. When we are supposed to dequeue, s<sub>2</sub> is checked first. If s<sub>2</sub> is empty, everything in s<sub>1</sub> will be transferred to s<sub>2</sub> by popping from s<sub>1</sub> and immediately pushing onto s<sub>2</sub>. Then we just pop from s<sub>2</sub> -- the top element of s<sub>2</sub> must be the first one to enter s<sub>1</sub> thus is the first element that was enqueued.
 
 Assume that each operation of push or pop takes 1 unit of time. You job is to tell the time taken for each dequeue.
 ## Input Specification:
