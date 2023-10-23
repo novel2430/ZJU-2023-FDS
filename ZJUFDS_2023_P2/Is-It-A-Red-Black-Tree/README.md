@@ -14,7 +14,7 @@ There is a kind of balanced binary search tree named red-black tree in the data 
 For example, the tree in Figure 1 is a red-black tree, while the ones in Figure 2 and 3 are not.
 | Figure 1 | Figure 2 | Figure 2 |
 | --- | --- | --- |
-| ![image](https://images.ptausercontent.com/eff80bd4-c833-4818-9786-81680d1b304a.jpg) | ![image](https://images.ptausercontent.com/b11184df-eaab-451c-b7d4-7fc1dc82b028.jpg) | ![image](https://images.ptausercontent.com/625c532b-22fc-47b9-80ea-0537cf00d922.jpg) |
+| ![image](https://github.com/novel2430/ZJU-2023-FDS/blob/main/ZJUFDS_2023_P2/Is-It-A-Red-Black-Tree/001.jpg?raw=true) | ![image](https://github.com/novel2430/ZJU-2023-FDS/blob/main/ZJUFDS_2023_P2/Is-It-A-Red-Black-Tree/002.jpg?raw=true) | ![image](https://github.com/novel2430/ZJU-2023-FDS/blob/main/ZJUFDS_2023_P2/Is-It-A-Red-Black-Tree/003.jpg?raw=true) |
 
 For each given binary search tree, you are supposed to tell if it is a legal red-black tree.
 ## Input Specification:
