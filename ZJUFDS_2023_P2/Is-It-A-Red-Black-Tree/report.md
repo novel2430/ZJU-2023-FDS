@@ -114,7 +114,7 @@ int tree_is_black_red(BlackRedTree* tree){
 ## Chapter 4: Analysis and Comments
 - For building tree:
 
-Base the fact of the algorithm meeting every node in recursive way, the time complexity of building tree is O(N)
+Base the fact of the algorithm meeting every node [N] in recursive way, and do searching in current preorder sequence , the worst time complexity of building tree is O(N*N)
 - For checking tree:
 
-Base the fact of the algorithm checking every node in recursive way, the time complexity of checking one tree is O(N)
+Base the fact of the algorithm checking every node [N] in recursive way, the time complexity of checking one tree is O(N)
