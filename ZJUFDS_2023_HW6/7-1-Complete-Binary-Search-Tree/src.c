@@ -36,12 +36,32 @@ void merge_sort(int* arr, int size){
   merge_sort_help(arr, tmp, 0, size-1);
 }
 
-
-int main(int argc, char *argv[]){
-  int a[8] = {4, 2, 3, 1, 23, 0, 11, 8};
-  merge_sort(a, 8);
-  for(int i=0; i<8; i++) printf("%d ", a[i]);
-  return EXIT_SUCCESS;
+// Build Tree Layer print
+void get_tree_layer_help(int* inorder, int n, int size, int* cur_idx, int* layer){
+  if(n>=size) return;
+  get_tree_layer_help(inorder, 2*n+1, size, cur_idx, layer);
+  layer[n] = inorder[*cur_idx];
+  (*cur_idx)++;
+  get_tree_layer_help(inorder, 2*(n+1), size, cur_idx, layer);
+}
+int* get_tree_layer(int* inorder, int size){
+  int* tmp = (int*)malloc(sizeof(int)*size);
+  int base_idx = 0;
+  int* idx = &base_idx;
+  get_tree_layer_help(inorder, 0, size, idx, tmp);
+  return tmp;
 }
 
-
+int main(int argc, char *argv[]){
+  int count;
+  scanf("%d", &count);
+  int nums[count];
+  for(int i=0; i<count; i++) scanf("%d", &nums[i]);
+  merge_sort(nums, count);
+  int* res = get_tree_layer(nums, count);
+  for(int i=0; i<count; i++){
+    if(i>0) printf(" ");
+    printf("%d", res[i]);
+  }
+  return 0;
+}
