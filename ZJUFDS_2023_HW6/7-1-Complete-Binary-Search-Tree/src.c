@@ -40,15 +40,13 @@ void merge_sort(int* arr, int size){
 void get_tree_layer_help(int* inorder, int n, int size, int* cur_idx, int* layer){
   if(n>=size) return;
   get_tree_layer_help(inorder, 2*n+1, size, cur_idx, layer);
-  layer[n] = inorder[*cur_idx];
-  (*cur_idx)++;
+  layer[n] = inorder[(*cur_idx)++];
   get_tree_layer_help(inorder, 2*(n+1), size, cur_idx, layer);
 }
 int* get_tree_layer(int* inorder, int size){
   int* tmp = (int*)malloc(sizeof(int)*size);
   int base_idx = 0;
-  int* idx = &base_idx;
-  get_tree_layer_help(inorder, 0, size, idx, tmp);
+  get_tree_layer_help(inorder, 0, size, &base_idx, tmp);
   return tmp;
 }
 
