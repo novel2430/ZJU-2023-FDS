@@ -19,6 +19,19 @@ Node* node_check_father(Node* node){
   node->parent = node_check_father(node->parent);
   return node->parent;
 }
+Node* node_check_father_non_recursice(Node* node){
+  // find root
+  Node* root = node;
+  while(root->parent!=root) root = root->parent;
+  // set root
+  Node* cur = node;
+  while(cur!=root){
+    Node* tmp = cur->parent;
+    cur->parent = root;
+    cur = tmp;
+  }
+  return root;
+}
 void node_build_connect(Node* n1, Node* n2){
   if(n1==NULL || n2==NULL) return;
   node_check_father(n1)->parent = node_check_father(n2);
