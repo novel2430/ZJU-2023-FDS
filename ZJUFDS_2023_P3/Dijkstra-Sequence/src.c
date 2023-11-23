@@ -175,7 +175,6 @@ HeapNode heap_pop_min(Heap* heap){
     else child_idx = pos*2;
     if(heap->value[child_idx]->weight < val) swap(pos, child_idx, heap);
     else break;
-    pos = child_idx;
   }
   HeapNode node;
   node.weight = res->weight;
@@ -196,7 +195,6 @@ void heap_insert(Heap* heap, int weight, int idx){
     else parent_idx = (pos-1)/2;
     if(heap->value[parent_idx]->weight>val) swap(pos, parent_idx, heap);
     else break;
-    pos = parent_idx;
   }
 }
 boolean heap_is_empty(Heap* heap){
