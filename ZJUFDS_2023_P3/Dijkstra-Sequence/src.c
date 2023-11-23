@@ -167,11 +167,9 @@ Heap* heap_init(){
 HeapNode heap_pop_min(Heap* heap){
   HeapNode* res = heap->value[1];
   heap->value[1] = heap->value[heap->size];
-  int pos = 1;
   heap->size--;
-  while(pos*2 <= heap->size){
+  for(int pos=1, child_idx; pos*2<=heap->size; pos=child_idx){
     int val = heap->value[pos]->weight;
-    int child_idx;
     if(pos*2+1 <= heap->size)
       child_idx = min_idx(pos*2, pos*2+1, heap);
     else child_idx = pos*2;
@@ -192,10 +190,8 @@ void heap_insert(Heap* heap, int weight, int idx){
   new_node->idx = idx;
   heap->value[heap->size+1] = new_node;
   heap->size++;
-  int pos = heap->size;
-  while(pos>1){
+  for(int pos=heap->size,parent_idx; pos>1; pos=parent_idx){
     int val = heap->value[pos]->weight;
-    int parent_idx;
     if(pos%2==0) parent_idx = pos/2;
     else parent_idx = (pos-1)/2;
     if(heap->value[parent_idx]->weight>val) swap(pos, parent_idx, heap);
@@ -228,6 +224,5 @@ int main(int argc, char *argv[]){
     if(is_dijkstra_sequence(graph, seq)==TRUE) printf("Yes\n");
     else printf("No\n");
   }
-
   return 0;
 }
