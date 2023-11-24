@@ -38,9 +38,11 @@ typedef struct Heap{
 // VertexNode op
 VertexNode* vertex_node_init(Element data);
 void vertex_node_insert_edge(VertexNode* node, int adjvex, int weight);
+void vertex_node_delete(VertexNode* node);
 
 // EdgeNode op
 EdgeNode* edge_node_init(int adjvex, int weight);
+void edge_node_delete(EdgeNode* node);
 
 // Graph op
 Graph* graph_init(int node_num, int edge_num);
@@ -48,12 +50,15 @@ void graph_insert_edge(Graph* graph, Element v1, Element v2, int weight);
 boolean is_dijkstra_sequence(Graph* graph, int* seq);
 boolean is_dijkstra_sequence_normal(Graph* graph, int* seq, int* dist, boolean* visit);
 boolean is_dijkstra_sequence_heap(Graph* graph, int* seq, int* dist, boolean* visit, Heap* heap);
+void graph_delete(Graph* graph);
 
 // Heap op
 Heap* heap_init();
 HeapNode heap_pop_min(Heap* heap);
 void heap_insert(Heap* heap, int weight, int idx);
 boolean heap_is_empty(Heap* heap);
+void heap_node_delete(HeapNode* node);
+void heap_delete(Heap* heap);
 
 
 // VertexNode op
@@ -71,6 +76,11 @@ void vertex_node_insert_edge(VertexNode* node, int adjvex, int weight){
   }
   node->first_edge = edge_node;
 }
+void vertex_node_delete(VertexNode* node){
+  if(node==NULL) return;
+  free(node);
+  node = NULL;
+}
 
 // EdgeNode op
 EdgeNode* edge_node_init(int adjvex, int weight){
@@ -79,6 +89,11 @@ EdgeNode* edge_node_init(int adjvex, int weight){
   res->weight = weight;
   res->next = NULL;
   return res;
+}
+void edge_node_delete(EdgeNode* node){
+  if(node==NULL) return;
+  free(node);
+  node = NULL;
 }
 
 // Graph op
@@ -105,11 +120,10 @@ boolean is_dijkstra_sequence(Graph* graph, int* seq){
   Heap* heap = heap_init();
   boolean res = is_dijkstra_sequence_heap(graph, seq, dist, visit, heap);
   // boolean res = is_dijkstra_sequence_normal(graph, seq, dist, visit);
-  free(heap);
+  heap_delete(heap);
   return res;
 }
 boolean is_dijkstra_sequence_heap(Graph* graph, int* seq, int* dist, boolean* visit, Heap* heap){
-  int node_num = graph->node_num;
   dist[seq[0]-1] = 0;
   heap_insert(heap, 0, seq[0]-1); 
   int i=0;
@@ -148,6 +162,20 @@ boolean is_dijkstra_sequence_normal(Graph* graph, int* seq, int* dist, boolean* 
   } 
   return TRUE;
 }
+void graph_delete(Graph* graph){
+  if(graph==NULL) return;
+  for(int i=0; i<graph->node_num; i++){
+    EdgeNode* cur = graph->adj_list[i]->first_edge;
+    while (cur!=NULL) {
+      EdgeNode* tmp = cur->next;
+      edge_node_delete(cur);
+      cur = tmp;
+    }
+    vertex_node_delete(graph->adj_list[i]);
+  }
+  free(graph);
+  graph = NULL;
+}
 
 // Heap op
 void swap(int pos1, int pos2, Heap* H){
@@ -179,7 +207,7 @@ HeapNode heap_pop_min(Heap* heap){
   HeapNode node;
   node.weight = res->weight;
   node.idx = res->idx;
-  free(res);
+  heap_node_delete(res);
   return node;
 }
 void heap_insert(Heap* heap, int weight, int idx){
@@ -200,6 +228,19 @@ void heap_insert(Heap* heap, int weight, int idx){
 boolean heap_is_empty(Heap* heap){
   if(heap->size==0) return TRUE;
   else return FALSE;
+}
+void heap_node_delete(HeapNode* node){
+  if(node==NULL) return;
+  free(node);
+  node = NULL;
+}
+void heap_delete(Heap* heap){
+  if(heap==NULL) return;
+  for(int i=1; i<=heap->size; i++){
+    heap_node_delete(heap->value[i]);
+  }
+  free(heap);
+  heap = NULL;
 }
 
 int main(int argc, char *argv[]){
@@ -222,5 +263,6 @@ int main(int argc, char *argv[]){
     if(is_dijkstra_sequence(graph, seq)==TRUE) printf("Yes\n");
     else printf("No\n");
   }
+  graph_delete(graph);
   return 0;
 }
