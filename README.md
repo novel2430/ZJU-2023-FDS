@@ -15,6 +15,7 @@
     - Hamiltonian Cycle [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_HW8/7-1-Hamiltonian-Cycle)
 - Homework 10
     -  Universal Travel Sites [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_HW10/7-1-Universal-Travel-Sites)
+    -  Uniqueness of MST [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_HW10/7-2-Uniqueness-of-MST)
 - Bonus 1
     - Queue Using Two Stacks [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS-2023-Bonus1/7-1-Queue-Using-Two-Stacks)
 - Midtest
