@@ -100,45 +100,63 @@ int min(int a, int b){
   if(a < b) return a;
   return b;
 }
-void tarjan(Graph G, Stack* stack, int* dfn, int* low, Boolean* in_stack, int cur_idx, int* visit_count, void (*visit)(Vertex V)){
-  dfn[cur_idx] = *visit_count;
-  low[cur_idx] = *visit_count;
-  (*visit_count)++;
-  stack_insert(stack, cur_idx);
-  in_stack[cur_idx] = TRUE;
-  for(PtrToVNode cur=G->Array[cur_idx]; cur!=NULL; cur=cur->Next){
-    if(dfn[cur->Vert]<0){
-      tarjan(G, stack, dfn, low, in_stack, cur->Vert, visit_count, visit);
-      low[cur_idx] = min(low[cur_idx], low[cur->Vert]);
-    }
-    else if(in_stack[cur->Vert]){
-      low[cur_idx] = min(low[cur_idx], dfn[cur->Vert]);
+Graph build_graph_inverse(Graph graph){
+  Graph res = (Graph)malloc(sizeof(struct GNode));
+  res->NumOfEdges = graph->NumOfEdges;
+  res->NumOfVertices = graph->NumOfVertices;
+  res->Array = (PtrToVNode*)malloc(sizeof(PtrToVNode)*res->NumOfVertices);
+  for(int i=0; i<res->NumOfVertices; i++) res->Array[i] = NULL;
+  for(int i=0; i<res->NumOfVertices; i++){
+    for(PtrToVNode cur = graph->Array[i]; cur!=NULL; cur=cur->Next){
+      int v1 = cur->Vert;
+      int v2 = i;
+      PtrToVNode node = (PtrToVNode)malloc(sizeof(struct VNode));
+      node->Vert = v2;
+      node->Next = NULL;
+      if(res->Array[v1]==NULL) res->Array[v1] = node;
+      else{
+        node->Next = res->Array[v1];
+        res->Array[v1] = node;
+      }
     }
   }
-  if(low[cur_idx]==dfn[cur_idx]){
-    while(!stack_is_empty(stack)){
-      int stack_top = stack_pop(stack);
-      in_stack[stack_top] = FALSE;
-      visit(stack_top);
-      if(cur_idx==stack_top) break;
-    }
-    printf("\n");
+  return res;
+}
+void kosaraju_first_dfs(Graph graph, Stack* stack, Boolean* visit, int cur_idx){
+  if(visit[cur_idx]) return;
+  visit[cur_idx] = TRUE;
+  for(PtrToVNode cur=graph->Array[cur_idx]; cur!=NULL; cur=cur->Next){
+    kosaraju_first_dfs(graph, stack, visit, cur->Vert);
+  }
+  stack_insert(stack, cur_idx);
+}
+void kosaraju_second_dfs(Graph graph, Boolean* visit, int cur_idx){
+  if(visit[cur_idx]) return;
+  visit[cur_idx] = TRUE;
+  printf("%d ", cur_idx);
+  for(PtrToVNode cur=graph->Array[cur_idx]; cur!=NULL; cur=cur->Next){
+    kosaraju_second_dfs(graph, visit, cur->Vert);
+  }
+}
+void kosaraju(Graph graph, Boolean* is_visit, int start){
+  Graph inverse_graph = build_graph_inverse(graph);
+  Stack* stack = stack_init(graph->NumOfVertices);
+  Boolean is_visit_2[graph->NumOfVertices];
+  for(int i=0; i<graph->NumOfVertices; i++) is_visit_2[i] = FALSE;
+  kosaraju_first_dfs(graph, stack, is_visit, start);
+  while(!stack_is_empty(stack)){
+    int stack_top = stack_pop(stack);
+    if(is_visit_2[stack_top]) continue;
+    kosaraju_second_dfs(inverse_graph, is_visit_2, stack_top);
   }
 }
 void StronglyConnectedComponents( Graph G, void (*visit)(Vertex V) ){
-  Stack* stack = stack_init(G->NumOfVertices);
-  int dfn[G->NumOfVertices];
-  int low[G->NumOfVertices];
-  Boolean in_stack[G->NumOfVertices];
+  Boolean is_visit[G->NumOfVertices];
+  for(int i=0; i<G->NumOfVertices; i++) is_visit[i] = FALSE;
   for(int i=0; i<G->NumOfVertices; i++){
-    dfn[i] = -1;
-    low[i] = -1;
-    in_stack[i] = FALSE;
+    if(is_visit[i]) continue;
+    kosaraju(G, is_visit, i);
+    printf("\n");
   }
-  for(int i=0; i<G->NumOfVertices; i++){
-    int visit_count = 0;
-    if(dfn[i]==-1)
-      tarjan(G, stack, dfn, low, in_stack, i, &visit_count, visit);
-    stack_empty(stack);
-  }
+
 }
