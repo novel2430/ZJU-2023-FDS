@@ -122,32 +122,36 @@ Graph build_graph_inverse(Graph graph){
   }
   return res;
 }
-void kosaraju_first_dfs(Graph graph, Stack* stack, Boolean* visit, int cur_idx){
+void kosaraju_first_dfs(Graph graph, Stack* stack, Boolean* visit, Boolean* in_stack, int cur_idx){
   if(visit[cur_idx]) return;
   visit[cur_idx] = TRUE;
   for(PtrToVNode cur=graph->Array[cur_idx]; cur!=NULL; cur=cur->Next){
-    kosaraju_first_dfs(graph, stack, visit, cur->Vert);
+    kosaraju_first_dfs(graph, stack, visit, in_stack, cur->Vert);
   }
   stack_insert(stack, cur_idx);
+  in_stack[cur_idx] = TRUE;
 }
-void kosaraju_second_dfs(Graph graph, Boolean* visit, int cur_idx){
-  if(visit[cur_idx]) return;
+void kosaraju_second_dfs(Graph graph, Boolean* visit, Boolean* in_stack, int cur_idx, void (*print_visit)(Vertex V)){
+  if(visit[cur_idx] || !in_stack[cur_idx]) return;
   visit[cur_idx] = TRUE;
-  printf("%d ", cur_idx);
+  print_visit(cur_idx);
   for(PtrToVNode cur=graph->Array[cur_idx]; cur!=NULL; cur=cur->Next){
-    kosaraju_second_dfs(graph, visit, cur->Vert);
+    kosaraju_second_dfs(graph, visit, in_stack, cur->Vert, print_visit);
   }
 }
-void kosaraju(Graph graph, Boolean* is_visit, int start){
+void kosaraju(Graph graph, Boolean* is_visit, int start, void (*visit)(Vertex V)){
   Graph inverse_graph = build_graph_inverse(graph);
   Stack* stack = stack_init(graph->NumOfVertices);
   Boolean is_visit_2[graph->NumOfVertices];
+  Boolean in_stack[graph->NumOfVertices];
   for(int i=0; i<graph->NumOfVertices; i++) is_visit_2[i] = FALSE;
-  kosaraju_first_dfs(graph, stack, is_visit, start);
+  for(int i=0; i<graph->NumOfVertices; i++) in_stack[i] = FALSE;
+  kosaraju_first_dfs(graph, stack, is_visit, in_stack, start);
   while(!stack_is_empty(stack)){
     int stack_top = stack_pop(stack);
     if(is_visit_2[stack_top]) continue;
-    kosaraju_second_dfs(inverse_graph, is_visit_2, stack_top);
+    kosaraju_second_dfs(inverse_graph, is_visit_2, in_stack, stack_top, visit);
+    printf("\n");
   }
 }
 void StronglyConnectedComponents( Graph G, void (*visit)(Vertex V) ){
@@ -155,8 +159,7 @@ void StronglyConnectedComponents( Graph G, void (*visit)(Vertex V) ){
   for(int i=0; i<G->NumOfVertices; i++) is_visit[i] = FALSE;
   for(int i=0; i<G->NumOfVertices; i++){
     if(is_visit[i]) continue;
-    kosaraju(G, is_visit, i);
-    printf("\n");
+    kosaraju(G, is_visit, i, visit);
   }
 
 }
