@@ -20,6 +20,7 @@
     - Strongly Connected Components [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_HW11/6-1-Strongly-Connected-Components)
 - Homework 12
     - Iterative Mergesort [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_HW12/6-1-Iterative-Mergesort)
+    - Insertion or Heap Sort [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_HW12/7-1-Insertion-or-Heap-Sort)
 - Bonus 1
     - Queue Using Two Stacks [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS-2023-Bonus1/7-1-Queue-Using-Two-Stacks)
 - Midtest
