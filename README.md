@@ -23,6 +23,8 @@
     - Insertion or Heap Sort [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_HW12/7-1-Insertion-or-Heap-Sort)
 - Bonus 1
     - Queue Using Two Stacks [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS-2023-Bonus1/7-1-Queue-Using-Two-Stacks)
+- Bonus 2
+    - Replacement Selection [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS-2023-Bonus2/7-1-Replacement-Selection)
 - Midtest
     - Build Tree from Post- and In-order Sequence [link](https://github.com/novel2430/ZJU-2023-FDS/tree/main/ZJUFDS_2023_midtest/R6-1-Build-Tree-from-Post-and-In-order-Sequences)
 - Project 2
